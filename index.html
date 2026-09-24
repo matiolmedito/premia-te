@@ -28,7 +28,7 @@ for(let i=1;i<=2000;i++){let b=document.createElement('button');b.className='num
 async function loadAvailability(){
  try{
   const url=SUPA+'/rest/v1/rpc/get_raffle_availability?_='+Date.now();
-  const r=await fetch(url,{cache:'no-store',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Cache-Control':'no-cache'}});
+  const r=await fetch(url,{method:'POST',cache:'no-store',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Cache-Control':'no-cache','Content-Type':'application/json'},body:'{}'});
   if(!r.ok)throw new Error('HTTP '+r.status);
   const rows=await r.json();
   if(!Array.isArray(rows)||rows.length!==2000)throw new Error('Respuesta incompleta: '+(Array.isArray(rows)?rows.length:'inválida')+' números');
