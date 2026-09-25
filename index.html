@@ -27,8 +27,8 @@ const grid=document.getElementById('grid'),selected=new Set(),price=10000,API='h
 for(let i=1;i<=2000;i++){let b=document.createElement('button');b.className='num';b.textContent=String(i).padStart(4,'0');b.dataset.n=i;b.onclick=()=>{if(b.classList.contains('sold')||b.classList.contains('pending'))return;b.classList.toggle('sel');b.classList.contains('sel')?selected.add(i):selected.delete(i);update()};grid.appendChild(b)}
 async function loadAvailability(){
  try{
-  const url=SUPA+'/rest/v1/raffle_availability_public?select=number,status&order=number.asc&limit=2000&_='+Date.now();
-  const r=await fetch(url,{cache:'no-store',headers:{apikey:KEY,Authorization:'Bearer '+KEY}});
+  const url=SUPA+'/functions/v1/raffle-availability?_='+Date.now();
+  const r=await fetch(url,{cache:'no-store'});
   if(!r.ok)throw new Error('HTTP '+r.status);
   const rows=await r.json();
   if(!Array.isArray(rows)||rows.length!==2000)throw new Error('Respuesta incompleta: '+(Array.isArray(rows)?rows.length:'inválida')+' números');
